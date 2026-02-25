@@ -11,6 +11,7 @@ class TrendsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Climate Action Insights"),
         backgroundColor: const Color(0xFF0D47A1),
+        foregroundColor: Colors.white,
       ),
       body: FutureBuilder<Map<String, int>>(
         future: TrendsService().getMonthlyTrends(),
@@ -29,10 +30,7 @@ class TrendsPage extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                const Text(
-                  "BigQuery Trend Analysis",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                ),
+                const Text("BigQuery Trend Analysis", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
                 const Text("Click a month to view hyperlocal data points."),
                 const SizedBox(height: 20),
@@ -44,31 +42,15 @@ class TrendsPage extends StatelessWidget {
                             elevation: 3,
                             margin: const EdgeInsets.symmetric(vertical: 8),
                             child: ListTile(
-                              leading: const Icon(
-                                Icons.analytics,
-                                color: Colors.blue,
-                              ),
-                              title: Text(
-                                e.key,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              subtitle: Text(
-                                "${e.value} Historic Flood Events",
-                              ),
-                              trailing: const Icon(
-                                Icons.arrow_forward_ios,
-                                size: 16,
-                              ),
+                              leading: const Icon(Icons.analytics, color: Colors.blue),
+                              title: Text(e.key, style: const TextStyle(fontWeight: FontWeight.bold)),
+                              subtitle: Text("${e.value} Historic Flood Events"),
+                              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                               onTap: () {
                                 // Navigate to the Detail Page
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        MonthDetailPage(monthName: e.key),
-                                  ),
+                                  MaterialPageRoute(builder: (context) => MonthDetailPage(monthName: e.key)),
                                 );
                               },
                             ),

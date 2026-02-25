@@ -39,7 +39,7 @@ class WeatherForecastTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(location, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                Text(location, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
                 GestureDetector(
                   onTap: () {
                     showDialog(
@@ -74,16 +74,20 @@ class WeatherForecastTile extends StatelessWidget {
               ],
             ),
 
+            SizedBox(height: 5),
+
             // weather condition
             Text(
               weatherCondition,
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.grey[700]),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.grey[700]),
             ),
+
+            SizedBox(height: 5),
 
             // temperature
             Text(
               temperature,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[700]),
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.grey[700]),
             ),
           ],
         ),

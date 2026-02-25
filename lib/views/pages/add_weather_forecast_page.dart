@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:country_state_city/country_state_city.dart' as csc;
 
 class AddWeatherForecastPage extends StatefulWidget {
-  const AddWeatherForecastPage({super.key});
+  const AddWeatherForecastPage({super.key, required this.loadPage});
+
+  final Function loadPage;
 
   @override
   State<AddWeatherForecastPage> createState() => _AddWeatherForecastPageState();
@@ -17,8 +19,30 @@ class _AddWeatherForecastPageState extends State<AddWeatherForecastPage> {
   List<csc.City> cities = [];
 
   void _onAddClicked() async {
-    await addWeatherForecast(selectedCity!);
-    Navigator.pop(context);
+    final status = await addWeatherForecast(selectedCity!);
+
+    if (status == 0) {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Warning"),
+            content: Text("This location cannot be found in the forecast. Please try another location."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  if (mounted) Navigator.pop(context);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    await widget.loadPage();
+    if (mounted) Navigator.pop(context);
   }
 
   @override
@@ -53,6 +77,8 @@ class _AddWeatherForecastPageState extends State<AddWeatherForecastPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Weather Forecast", style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Color(0xFF0D47A1),
+        foregroundColor: Colors.white,
       ),
       body: Container(
         width: double.infinity,
@@ -82,7 +108,7 @@ class _AddWeatherForecastPageState extends State<AddWeatherForecastPage> {
                       _loadCities();
                     },
                   )
-                : CircularProgressIndicator(),
+                : Center(child: CircularProgressIndicator()),
 
             SizedBox(height: 30),
 

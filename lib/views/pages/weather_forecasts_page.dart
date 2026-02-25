@@ -32,12 +32,17 @@ class _WeatherForecastsPageState extends State<WeatherForecastsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Weather Forecasts", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27)),
+        title: Text("Weather Forecasts", style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Color(0xFF0D47A1),
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-        child: weatherForecasts != null
-            ? ListView.builder(
+        child: weatherForecasts == null
+            ? Center(child: CircularProgressIndicator())
+            : weatherForecasts!.isEmpty
+            ? Center(child: Text("No weather forecasts"))
+            : ListView.builder(
                 itemCount: weatherForecasts!.length,
                 itemBuilder: (context, index) {
                   final docId = weatherForecasts![index]['docId'];
@@ -54,14 +59,17 @@ class _WeatherForecastsPageState extends State<WeatherForecastsPage> {
                     loadPage: getWeatherForecasts,
                   );
                 },
-              )
-            : Center(child: CircularProgressIndicator()),
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Navigator.push(context, MaterialPageRoute(builder: (context) => AddWeatherForecastPage()));
+          await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddWeatherForecastPage(loadPage: getWeatherForecasts)),
+          );
           await getWeatherForecasts();
         },
+        backgroundColor: Color(0xFFBBDEFB),
         child: Text("+", style: TextStyle(fontSize: 25)),
       ),
     );

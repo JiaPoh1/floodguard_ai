@@ -14,16 +14,30 @@ Future<List<City>> getAllCitiesByState(String stateCode) async {
   return await getStateCities('MY', stateCode);
 }
 
-Future<Map<String, dynamic>> fetchWeatherForecasts(String cityName) async {
+Future<Map<String, dynamic>?> fetchGeoLocation(String cityName) async {
   final geoResponse = await http.get(
     Uri.parse(
       'http://api.openweathermap.org/geo/1.0/direct?q=$cityName,MY&limit=1&appid=${dotenv.env['OPEN_WEATHER_API_KEY']}',
     ),
   );
-  final geoJson = jsonDecode(geoResponse.body)[0] as Map<String, dynamic>;
+  final json = jsonDecode(geoResponse.body) as List<dynamic>;
 
-  final lat = geoJson['lat'];
-  final lon = geoJson['lon'];
+  if (json.isEmpty) {
+    return null;
+  }
+
+  return jsonDecode(geoResponse.body)[0] as Map<String, dynamic>;
+}
+
+Future<Map<String, dynamic>?> fetchWeatherForecasts(String cityName) async {
+  final geoData = await fetchGeoLocation(cityName);
+
+  if (geoData == null) {
+    return null;
+  }
+
+  final lat = geoData['lat'];
+  final lon = geoData['lon'];
 
   final response = await http.get(
     Uri.parse(
@@ -35,21 +49,38 @@ Future<Map<String, dynamic>> fetchWeatherForecasts(String cityName) async {
 }
 
 Future<List<Map<String, dynamic>>> getAllWeatherForecasts() async {
-  final weatherForecastsSnapshots = await FirebaseFirestore.instance.collection('weather_forecasts').get();
-  final List<Map<String, dynamic>> weatherForecasts = [];
+  try {
+    final weatherForecastsSnapshots = await FirebaseFirestore.instance.collection('weather_forecasts').get();
+    final List<Map<String, dynamic>> weatherForecasts = [];
 
-  for (var weatherForecast in weatherForecastsSnapshots.docs) {
-    final data = await fetchWeatherForecasts(weatherForecast['city_name']);
-    data['name'] = weatherForecast['city_name'];
-    data['docId'] = weatherForecast.id;
-    weatherForecasts.add(data);
+    for (var weatherForecast in weatherForecastsSnapshots.docs) {
+      final data = await fetchWeatherForecasts(weatherForecast['city_name']);
+
+      if (data == null) {
+        continue;
+      }
+
+      data['name'] = weatherForecast['city_name'];
+      data['docId'] = weatherForecast.id;
+      weatherForecasts.add(data);
+    }
+
+    return weatherForecasts;
+  } catch (e) {
+    print(e);
+    return [];
   }
-
-  return weatherForecasts;
 }
 
-Future<void> addWeatherForecast(String cityName) async {
+Future<int> addWeatherForecast(String cityName) async {
+  final geoData = await fetchGeoLocation(cityName);
+
+  if (geoData == null) {
+    return 0;
+  }
+
   await FirebaseFirestore.instance.collection('weather_forecasts').add({'city_name': cityName, 'country_code': 'MY'});
+  return 1;
 }
 
 Future<void> deleteWeatherForecast(String docId) async {
