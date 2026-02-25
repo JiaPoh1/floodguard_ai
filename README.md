@@ -1,56 +1,87 @@
-# 🌊 FloodGuard AI
+# 🌊 FloodGuard AI  
+AI-Powered Hyperlocal Flood Risk & Response Platform  
 
-## Hyperlocal Flood Risk & Response Platform
+## 📌 Project Description  
 
-FloodGuard AI is a smart flood monitoring and early warning mobile application built with Flutter.
-It provides real-time flood alerts, AI-based risk prediction, and interactive maps to help communities prepare and respond effectively.
+FloodGuard AI is a smart flood risk prediction and emergency response mobile application built using Flutter and Google technologies.  
 
-# 🚀 Features
+Flooding is one of the most frequent and destructive natural disasters, especially in vulnerable communities with limited early warning systems. Many existing systems provide general alerts but lack **hyperlocal, real-time, AI-driven insights** that help individuals take immediate action.
 
-📍 Real-time Flood Monitoring
+FloodGuard AI solves this problem by:
+- Providing AI-based flood risk predictions
+- Visualizing risk levels on an interactive map
+- Offering actionable safety recommendations
 
-🗺️ Interactive Map with Risk Zones
+---
 
-🤖 AI Flood Risk Prediction
+## 🎯 Alignment with AI & Sustainable Development Goals (SDGs)
 
-🌧️ Weather Data Integration
+### 🤖 Artificial Intelligence
+FloodGuard AI uses machine learning models to:
+- Analyze rainfall data
+- Evaluate historical flood patterns
+- Classify flood risk levels (Low, Medium, High)
+- Generate intelligent safety recommendations
 
-📊 Historical Flood Data
+AI enables predictive analysis instead of reactive response.
 
-# 🛠️ Built With
+### 🌍 Sustainable Development Goals
 
-Flutter – Cross-platform mobile development
+FloodGuard AI directly supports:
 
-Dart – Programming language
+**SDG 6 – Clean Water and Sanitation**  
+→ Promotes water safety and reduces contamination risks during floods.
 
-Firebase – Backend & Authentication
+**SDG 11 – Sustainable Cities and Communities**  
+→ Enhances disaster resilience through early warning systems.
 
-Google Maps API – Map visualization
+**SDG 13 – Climate Action**  
+→ Uses data-driven insights to mitigate climate-related risks.
 
-AI Model Integration (Nano Banana / Firebase AI)
+---
 
-# 🧠 How It Works
+## 🚀 Key Features
 
-Collects weather and rainfall data via API
+- 🌧️ Real-time flood risk prediction
+- 🗺️ Interactive Google Maps visualization
+- 📊 Historical flood data insights
+- 🤖 AI-generated safety recommendations
 
-Processes data using AI risk model
+---
 
-Displays flood-prone zones on interactive map
+## 🛠 Technical Implementation
 
-Sends alerts when risk level increases
+### 💻 Frontend
+- Flutter (Cross-platform mobile development)
+- Google Maps API (Location & visualization)
+- Firebase Cloud Messaging (Push notifications)
 
-# ⚙️ Installation
-git clone https://github.com/yourusername/floodguard-ai.git
+### ☁️ Backend
+- Firebase Firestore (Real-time database)
+- Firebase Authentication (Secure login system)
+- AI Prediction Model (Risk classification algorithm)
+
+---
+
+## 🔎 Google Technology Utilization (Cause & Effect)
+
+We used **Google Maps Platform** to visualize real-time flood risk geographically.  
+→ This allows users to clearly see affected zones and plan safer routes.
+
+We used **Firebase Firestore** for real-time cloud data storage.  
+→ This ensures instant synchronization of flood alerts across all users.
+
+We used **Firebase Cloud Messaging (FCM)** for push notifications.  
+→ This enables immediate flood warnings, improving emergency response time.
+
+We used **Flutter** as the development framework.  
+→ This ensures cross-platform accessibility (Android & iOS) with high performance.
+
+---
+
+## 📦 Setup Instructions
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/EugeneHZC/floodguard-ai.git
 cd floodguard-ai
-flutter pub get
-flutter run
-
-# 👥 Team
-
-Ashlee Sia Wei Tien
-
-Han Zhi Chou
-
-Yeoh Jia Poh
-
-Tam Kai Dit
