@@ -1,3 +1,4 @@
+import 'package:floodguard_ai/views/pages/community_report_page.dart';
 import 'package:floodguard_ai/views/pages/trends_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -75,7 +76,14 @@ class HomePage extends StatelessWidget {
                     icon: Icons.report,
                     label: "Report Flood",
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Feature coming soon")));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CommunityReportPage();
+                          },
+                        ),
+                      );
                     },
                   ),
                   _actionButton(
