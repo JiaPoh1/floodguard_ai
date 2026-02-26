@@ -7,10 +7,37 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class AIService {
   GenerativeModel get _model {
     final apiKey = dotenv.env['GEMINI_API_KEY'] ?? "";
-
-    // FIX: Changed gemini-2.5-flash-latest to gemini-1.5-flash
     return GenerativeModel(model: 'gemini-2.5-flash', apiKey: apiKey);
   }
+
+Future<Map<String, dynamic>> getAnalysis(Map<String, dynamic> weatherData) async {
+  final prompt = """
+    Analyze this weather JSON: ${jsonEncode(weatherData)}.
+    Return ONLY a JSON object with these keys: "risk_level" and "analysis".
+  """;
+
+  try {
+    final response = await _model.generateContent([Content.text(prompt)]);
+    String text = response.text ?? "";
+    print("RAW AI RESPONSE: ${response.text}");
+
+    final int start = text.indexOf('{');
+    final int end = text.lastIndexOf('}');
+    
+    if (start != -1 && end != -1) {
+      final String jsonPart = text.substring(start, end + 1);
+      return jsonDecode(jsonPart);
+    } else {
+      throw Exception("AI didn't return a JSON block");
+    }
+  } catch (e) {
+    print("AI Parsing Error: $e");
+    return {
+      "risk_level": "Low",
+      "analysis": "Analysis currently unavailable."
+    };
+  }
+}
 
   Future<String> predictFloodRisk({
     required double rainfall,
