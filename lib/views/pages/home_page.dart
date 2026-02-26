@@ -1,6 +1,7 @@
 import 'package:floodguard_ai/views/pages/community_report_page.dart';
 import 'package:floodguard_ai/views/pages/trends_page.dart';
 import 'package:floodguard_ai/views/pages/weather_forecasts_page.dart';
+import 'package:floodguard_ai/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'flood_map_page.dart';
@@ -13,10 +14,8 @@ class HomePage extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("FloodGuard AI"),
-        backgroundColor: const Color(0xFF0D47A1),
-        foregroundColor: Colors.white,
+      appBar: CustomAppbar(
+        title: "FloodGuard AI",
         actions: [
           IconButton(
             onPressed: () async {

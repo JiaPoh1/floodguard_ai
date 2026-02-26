@@ -1,5 +1,6 @@
 // lib/views/pages/month_detail_page.dart
 
+import 'package:floodguard_ai/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import '../../services/trends_service.dart';
 import '../../widgets/ai_summary_widget.dart';
@@ -11,7 +12,7 @@ class MonthDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("$monthName Deep Dive")),
+      appBar: CustomAppbar(title: "$monthName Deep Dive", actions: []),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: TrendsService().getDetailsForMonth(monthName),
         builder: (context, snapshot) {
@@ -30,10 +31,7 @@ class MonthDetailPage extends StatelessWidget {
                 padding: EdgeInsets.all(16.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Historical Records",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  child: Text("Historical Records", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 ),
               ),
 
@@ -44,21 +42,11 @@ class MonthDetailPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final r = records[index];
                     return Card(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
+                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: ListTile(
-                        leading: Icon(
-                          Icons.location_on,
-                          color: r['flooded'] == true
-                              ? Colors.red
-                              : Colors.green,
-                        ),
+                        leading: Icon(Icons.location_on, color: r['flooded'] == true ? Colors.red : Colors.green),
                         title: Text(r['location']),
-                        subtitle: Text(
-                          "Rain: ${r['rainfall_mm']}mm | River: ${r['river_level_m']}m",
-                        ),
+                        subtitle: Text("Rain: ${r['rainfall_mm']}mm | River: ${r['river_level_m']}m"),
                       ),
                     );
                   },

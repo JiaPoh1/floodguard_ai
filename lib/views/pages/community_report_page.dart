@@ -1,3 +1,4 @@
+import 'package:floodguard_ai/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'report_form.dart';
@@ -8,29 +9,20 @@ class CommunityReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Community Flood Reports"),
-        backgroundColor: const Color(0xFF0D47A1),
-      ),
+      appBar: CustomAppbar(title: "Community Flood Reports", actions: []),
 
       // 🔹 Floating button to add report
       floatingActionButton: FloatingActionButton(
         foregroundColor: Colors.white,
         backgroundColor: const Color(0xFF0D47A1),
-        child: const Icon(Icons.add, color: Colors.black),
+        child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const ReportForm()),
-          );
+          Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportForm()));
         },
       ),
 
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('reports')
-            .orderBy('timestamp', descending: true)
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection('reports').orderBy('timestamp', descending: true).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -55,10 +47,7 @@ class CommunityReportPage extends StatelessWidget {
                   subtitle: Text(data['comment']),
                   trailing: Text(
                     data['waterLevel'],
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                   ),
                 ),
               );

@@ -1,3 +1,4 @@
+import 'package:floodguard_ai/widgets/custom_appbar.dart';
 import 'package:floodguard_ai/widgets/weather_forecast_tile.dart';
 import 'package:floodguard_ai/views/pages/add_weather_forecast_page.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +32,7 @@ class _WeatherForecastsPageState extends State<WeatherForecastsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Weather Forecasts", style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color(0xFF0D47A1),
-        foregroundColor: Colors.white,
-      ),
+      appBar: CustomAppbar(title: "Weather Forecasts", actions: []),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
         child: weatherForecasts == null

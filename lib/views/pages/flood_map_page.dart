@@ -1,3 +1,4 @@
+import 'package:floodguard_ai/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -32,15 +33,11 @@ class _FloodMapPageState extends State<FloodMapPage> {
           markerId: MarkerId("${record.location}_${record.date.millisecondsSinceEpoch}"),
           position: LatLng(record.lat, record.lng),
           icon: BitmapDescriptor.defaultMarkerWithHue(
-            record.flooded
-                ? BitmapDescriptor.hueRed
-                : BitmapDescriptor.hueGreen,
+            record.flooded ? BitmapDescriptor.hueRed : BitmapDescriptor.hueGreen,
           ),
           infoWindow: InfoWindow(
             title: record.location,
-            snippet: record.flooded
-                ? "Flooded • ${record.date.year}"
-                : "No Flood",
+            snippet: record.flooded ? "Flooded • ${record.date.year}" : "No Flood",
           ),
         );
       }).toSet();

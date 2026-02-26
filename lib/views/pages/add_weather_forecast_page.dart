@@ -1,4 +1,6 @@
 import 'package:floodguard_ai/services/weather_forecasts_service.dart';
+import 'package:floodguard_ai/widgets/custom_appbar.dart';
+import 'package:floodguard_ai/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:country_state_city/country_state_city.dart' as csc;
 
@@ -75,11 +77,7 @@ class _AddWeatherForecastPageState extends State<AddWeatherForecastPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Add Weather Forecast", style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color(0xFF0D47A1),
-        foregroundColor: Colors.white,
-      ),
+      appBar: CustomAppbar(title: "Add Weather Forecast", actions: []),
       body: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -141,15 +139,7 @@ class _AddWeatherForecastPageState extends State<AddWeatherForecastPage> {
             // add button
             Container(
               margin: EdgeInsets.symmetric(vertical: 10),
-              child: ElevatedButton(
-                onPressed: _onAddClicked,
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(1000, 50),
-                  backgroundColor: Colors.lightBlue,
-                  foregroundColor: Colors.white,
-                ),
-                child: Text("Add", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
-              ),
+              child: CustomButton(buttonText: "Add", callback: _onAddClicked),
             ),
           ],
         ),

@@ -1,3 +1,5 @@
+import 'package:floodguard_ai/widgets/custom_appbar.dart';
+import 'package:floodguard_ai/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -34,7 +36,7 @@ class _ReportFormState extends State<ReportForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Report Flood")),
+      appBar: CustomAppbar(title: "Report Flood", actions: []),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -46,13 +48,12 @@ class _ReportFormState extends State<ReportForm> {
             const SizedBox(height: 10),
 
             DropdownButtonFormField<String>(
-              value: _waterLevel,
-              items: ['Low', 'Medium', 'High']
-                  .map(
-                    (level) =>
-                        DropdownMenuItem(value: level, child: Text(level)),
-                  )
-                  .toList(),
+              initialValue: _waterLevel,
+              items: [
+                'Low',
+                'Medium',
+                'High',
+              ].map((level) => DropdownMenuItem(value: level, child: Text(level))).toList(),
               onChanged: (value) => setState(() => _waterLevel = value!),
               decoration: const InputDecoration(labelText: "Water Level"),
             ),
@@ -65,10 +66,8 @@ class _ReportFormState extends State<ReportForm> {
             ),
 
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _submitReport,
-              child: const Text("Submit Report"),
-            ),
+
+            CustomButton(buttonText: "Submit Report", callback: _submitReport),
           ],
         ),
       ),

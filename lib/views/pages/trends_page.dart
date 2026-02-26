@@ -1,3 +1,4 @@
+import 'package:floodguard_ai/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import '../../services/trends_service.dart';
 import 'month_detail_page.dart';
@@ -8,11 +9,7 @@ class TrendsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Climate Action Insights"),
-        backgroundColor: const Color(0xFF0D47A1),
-        foregroundColor: Colors.white,
-      ),
+      appBar: CustomAppbar(title: "Climate Action Insights", actions: []),
       body: FutureBuilder<Map<String, int>>(
         future: TrendsService().getMonthlyTrends(),
         builder: (context, snapshot) {
