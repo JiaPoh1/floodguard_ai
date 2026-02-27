@@ -60,10 +60,25 @@ class _AISummaryWidgetState extends State<AISummaryWidget> {
                 ],
               ),
               // THE RETRY BUTTON
-              IconButton(
-                icon: const Icon(Icons.refresh, size: 20, color: Colors.blue),
+              ElevatedButton.icon(
                 onPressed: _loadSummary,
-                tooltip: "Retry AI Analysis",
+                icon: const Icon(Icons.refresh),
+                label: const Text("Refresh Insight"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue[700],
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
               ),
             ],
           ),
